@@ -10,18 +10,21 @@ or one of the following three literal names:
   · true
   · null
 */
+
+type JSONPrmitive = String | number | boolean | null
+
 /**
  * A JSON object type   {    }
  */
-type JSONObject = any
+type JSONObject = {[key:string]: JSONValue }
 /**
  * A JSON array type   [    ]
  */
-type JSONArray = any
+type JSONArray = JSONPrmitive[]
 /**
  * A type representing any valid JSON value
  */
-type JSONValue = any
+type JSONValue = JSONPrmitive | JSONArray | JSONObject
 
 //! DO NOT EDIT ANY CODE BELOW THIS LINE
 function isJSON(arg: JSONValue) {}
@@ -36,11 +39,11 @@ isJSON(null) //✔️ null values
 isJSON({ a: { b: [2, 3, 'foo', null, false] } }) //✔️ A complex object
 
 //! NEGATIVE test cases (must fail)
-//// @ts-expect-error
+// @ts-expect-error
 isJSON(() => '') //! Functions are not valid JSON
-//// @ts-expect-error
+// @ts-expect-error
 isJSON(class {}) //! Classes are not valid JSON
-//// @ts-expect-error
+// @ts-expect-error
 isJSON(undefined) //! undefined is not valid JSON
-//// @ts-expect-error
+// @ts-expect-error
 isJSON(BigInt(143)) //! BigInts are not valid JSON

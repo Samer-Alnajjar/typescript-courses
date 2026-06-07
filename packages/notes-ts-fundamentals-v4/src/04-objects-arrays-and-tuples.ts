@@ -20,7 +20,7 @@ function printCar(car?: {
   year: number
   chargeVoltage?: number //* Optional properties
 }) {
-  // if (!car) return
+  if (!car) return
 
   let str = `${car.make} ${car.model} (${car.year})`
   if (typeof car.chargeVoltage === "number") {
@@ -82,7 +82,7 @@ printCar({
   color: "RED", //? EXTRA PROPERTY
 })
 
-// 
+//
 
 
 //* Index signatures
@@ -107,11 +107,14 @@ const phones: {
 
 //? Model as an index signature
 const x: { [k: string]: string } = {}
+x.foo = "bar"
+x.foo = 123 //? Type 'number' is not assignable to type 'string'.
 
-phones.mobile
+phones.mobile //use dot notation for known keys
 phones.work
+phones.custom_1 //? undefined, use square brackets to access keys, like below
 
-const y = phones['aaaa']
+const y = phones['aaaa'] //? undefined, use square brackets to access keys
 
 //*  Array Types
 
@@ -141,6 +144,7 @@ const [year, make, model] = myCar2 //✔️ Destructuring
 
 myCar2 = ["Honda", 2017, "Accord", "Sedan"] //! Wrong convention
 
+// Use type annotation to fix the error like below
 let myCar3: [number, string, string] = [
     2002,
     "Toyota",
@@ -169,6 +173,7 @@ const roNumPair: readonly [number, number] = [4, 5]
 roNumPair.length
 roNumPair.push(6) // [4, 5, 6] //! Not allowed
 roNumPair.pop() // [4, 5] //! Not allowed
+roNumPair[1] = 6 //? Type '[number, number]' is not assignable to type 'readonly [number, number]'.
 
 /**/
 

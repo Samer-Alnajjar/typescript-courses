@@ -12,7 +12,8 @@ humidity = temperature; //! (3) - number is not of type `79`
 humidity = 79; //✔️ (4) - 79 is of type `79`
 humidity = 78; //! (5) - 78 is not of type `79`
 
-
+let x = 10 as 79 //!Don't use this
+let y = 10 as const //Use this instead
 
 let temp2 = 19; //! temp2's type is { all numbers }
 let humid2 = 79 as const; //! humidity's type is { 79 }
@@ -49,10 +50,10 @@ const humid3 = 79 as number; //✔️ is 79 a number? If so, this is safe!
 
 
 let date3 = "oops" as any as Date //! TypeScript thinks this is a Date now, but it's really a string
-date3.toISOString() //! what do we think will happen when we run this? 💥
+date3.toISOString() //! what do we think will happen when we run this? 💥 TypeError: date3.toISOString is not a function
 
 
-let date4 = "oops" as Date
+let date4 = "oops" as Date //! Conversion of type 'string' to type 'Date' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
 
 
 //! Function arguments and return values
